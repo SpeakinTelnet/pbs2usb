@@ -39,12 +39,12 @@ def backup(
     create_folder(process_hash)
     confirmation(trustless)
 
-    log.debug("Mounting USB")
-    mount_usb(usb_id, process_hash)
-    confirmation(trustless)
-
     log.debug("Creating USB datastore")
     create_usb_datastore(process_hash)
+    confirmation(trustless)
+
+    log.debug("Mounting USB")
+    mount_usb(usb_id, process_hash)
     confirmation(trustless)
 
     log.debug("Pulling backup")
