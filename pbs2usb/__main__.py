@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     process_hash = random.randbytes(32).hex()
 
-    msg = """
+    msg = f"""
     Will mount usb {usb_id}
     In folder /media/{process_hash}
     And pull the data from {datastore}
