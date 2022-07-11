@@ -51,7 +51,7 @@ if __name__ == "__main__":
             log.error("Cancelling the backup process")
             exit(1)
 
-    process_hash = random.randbytes(32).hex()
+    process_hash = random.randbytes(8).hex()
 
     msg = f"""
     Will mount usb {usb_id}
