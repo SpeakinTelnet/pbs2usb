@@ -9,6 +9,12 @@ Installation
 
 .. readme-install-start
 
+You will need the `lshw <https://manpages.debian.org/bullseye-backports/lshw/lshw.1.en.html>`_ package which can be install with:
+
+.. code-block:: console
+
+  $ sudo apt install lshw -y
+
 pbs2usb can be installed using ``pip`` as follows:
 
 .. code-block:: console

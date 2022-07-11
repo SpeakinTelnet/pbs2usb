@@ -1,5 +1,6 @@
 """Main module."""
 
+import json
 import random
 from pbs2usb.backup import backup
 from pbs2usb._utils.parser import parser
@@ -34,14 +35,14 @@ if __name__ == "__main__":
 
     diskinfo = get_disk_info(usb_id)
 
-    if "failed: No such device" in diskinfo:
+    if not diskinfo:
         log.critical(f"{usb_id} not found. Please verify the /dev/sdX id")
         exit(1)
 
     if not unattended:
         # Get the usb info and confirmation before proceeding
         confirm = input(
-            diskinfo
+            json.dumps(diskinfo, indent=4)
             + "\n\n"
             + "Please confirm that this is the usb disk. Are you sure? [y/n]: "
         )

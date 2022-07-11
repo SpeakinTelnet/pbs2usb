@@ -1,3 +1,4 @@
+import json
 from subprocess import Popen, PIPE
 
 
@@ -18,6 +19,9 @@ def remove_folder(hash: str):
 
 
 def get_disk_info(usb_id):
-    process = Popen(f"smartctl -i {usb_id}", stdout=PIPE)
-    info, _ = process.communicate()
-    return info
+    process = Popen(["lshw", "-c", "disk", "-json", "-quiet"], stdout=PIPE)
+    json_disks, _ = process.communicate()
+    disks = json.loads(json_disks)
+    for disk in disks:
+        if usb_id in disk["logicalname"]:
+            return disk 
