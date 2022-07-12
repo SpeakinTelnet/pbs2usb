@@ -15,7 +15,10 @@ def backup(
 
     syscmd.mount_usb()
 
-    pbscmd.create_usb_datastore()
+    if syscmd.check_existing_chunk():
+        syscmd.append_datastore_config()
+    else:
+        pbscmd.create_usb_datastore()
 
     pbscmd.pull_datastore()
 
