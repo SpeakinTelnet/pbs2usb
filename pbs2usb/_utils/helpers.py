@@ -17,15 +17,14 @@ def verify_usb_format(usb_id):
     except AssertionError:
         return False
 
-def smart_log(trustless, log):
-    def _smart_log(func):
-        funcname = func.__name__.replace('_', ' ')
-        def wrapper(*args, **kwargs):
-            log.debug(f"Starting action: {funcname}")
-            future = func(*args, **kwargs)
-            if trustless:
-                input(f"""Action {funcname} is done! Continue?
-                    Hit return to continue or CTRL+C to cancel""")
-            return future
-        return wrapper
-    return _smart_log
+def smart_log(func):
+    funcname = func.__name__.replace('_', ' ')
+    def wrapper(self, *args, **kwargs):
+        self.log.debug(f"Starting action: {funcname}")
+        future = func(self, *args, **kwargs)
+        if self.trustless:
+            input(f"""Action {funcname} is done! Continue?
+                Hit return to continue or CTRL+C to cancel""")
+        return future
+    return wrapper
+

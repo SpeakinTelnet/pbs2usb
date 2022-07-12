@@ -6,16 +6,15 @@ from pbs2usb._utils.helpers import smart_log
 
 class PBSCommands:
 
-    log = None
-    trustless = False
-    
-    def __init__(self, hash, datastore, namespace = None) -> None:
+    def __init__(self, hash, datastore, namespace, log, trustless) -> None:
         self.hash = hash
         self.datastore = datastore
         self.namespace = namespace
+        self.log = log
+        self.trustless = trustless
 
 
-    @smart_log(trustless, log)
+    @smart_log
     def create_usb_datastore(self):
         """Create a temporary datastore for PBS to use the USB drive"""
         cmd = [
@@ -34,7 +33,7 @@ class PBSCommands:
         process.wait()
 
 
-    @smart_log(trustless, log)
+    @smart_log
     def remove_usb_datastore(self):
         """Remove the previously created USB datastore to free the mounpoint"""
         cmd = ["sudo", "proxmox-backup-manager", "datastore", "remove", self.hash]
@@ -42,7 +41,7 @@ class PBSCommands:
         process.wait()
 
 
-    @smart_log(trustless, log)
+    @smart_log
     def pull_datastore_to_usb(self):
         cmd = [
             "sudo",
@@ -58,7 +57,7 @@ class PBSCommands:
         process.wait()
 
 
-    @smart_log(trustless, log)
+    @smart_log
     def verify_usb_datastore(self):
         cmd = ["proxmox-backup-manager", "verify", self.datastore]
         process = Popen(cmd)

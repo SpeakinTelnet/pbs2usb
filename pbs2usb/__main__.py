@@ -37,9 +37,9 @@ if __name__ == "__main__":
 
     process_hash = random.randbytes(8).hex()
 
-    syscmd = SystemCommands(usb_id, process_hash)
+    syscmd = SystemCommands(usb_id, process_hash, log, trustless)
 
-    pbscmd = PBSCommands(process_hash, datastore, namespace)
+    pbscmd = PBSCommands(process_hash, datastore, namespace, log, trustless)
 
     if not verify_usb_format(usb_id):
         log.critical(f"{usb_id} does not match the /dev/sdX pattern")

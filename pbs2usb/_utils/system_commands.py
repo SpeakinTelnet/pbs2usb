@@ -6,30 +6,30 @@ from pbs2usb._utils.helpers import smart_log
 
 class SystemCommands:
 
-    log = None
-    trustless = False
 
-    def __init__(self, usb_id, hash) -> None:
+    def __init__(self, usb_id, hash, log, trustless) -> None:
         self.usb_id = usb_id
         self.hash = hash
+        self.log = log
+        self.trustless = trustless
 
-    @smart_log(trustless, log)
+    @smart_log
     def mount_usb(self):
         Popen(["sudo", "mount", self.usb_id, f"/media/{hash}"]).wait()
 
-    @smart_log(trustless, log)
+    @smart_log
     def umount_usb(self):
         Popen(["sudo", "umount", self.usb_id, f"/media/{self.hash}"]).wait()
 
-    @smart_log(trustless, log)
+    @smart_log
     def create_usb_folder(self):
         Popen(["mkdir", f"/media/{self.hash}"]).wait()
 
-    @smart_log(trustless, log)
+    @smart_log
     def remove_usb_folder(self):
         Popen(["rm", "-r", f"/media/{self.hash}"]).wait()
 
-    @smart_log(trustless, log)
+    @smart_log
     def append_datastore_config(self):
         datastore_add = f"""
         datastore: {self.hash}
