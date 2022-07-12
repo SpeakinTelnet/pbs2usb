@@ -25,15 +25,10 @@ if __name__ == "__main__":
     logger_level = args.logger.upper()
 
     if trustless:
-        PBSCommands.trustless = True
-        SystemCommands.trustless = True
         unattended = False
         logger_level = "DEBUG"
 
     log = make_logger(logger_level)
-
-    PBSCommands.log = log
-    SystemCommands.log = log
 
     proc_hash = random.randbytes(8).hex()
 
