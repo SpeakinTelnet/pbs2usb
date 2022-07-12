@@ -30,11 +30,11 @@ if __name__ == "__main__":
     log = make_logger(logger_level)
 
     # Create an "hash" to use as folder and datastore
-    proc_hash = random.randbytes(8).hex()
+    hex_bytes = random.randbytes(8).hex()
 
-    syscmd = SystemCommands(usb_id, proc_hash, log, trustless)
+    syscmd = SystemCommands(usb_id, hex_bytes, log, trustless)
 
-    pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless, test)
+    pbscmd = PBSCommands(hex_bytes, datastore, namespace, log, trustless, test)
 
     diskinfo = verify_prerequisite(syscmd)
 
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     msg = f"""
     Will mount usb {usb_id}
-    In folder /media/{proc_hash}
+    In folder /media/{hex_bytes}
     And pull the data from {datastore}
     """
     if args.namespace:
