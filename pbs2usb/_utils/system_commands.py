@@ -32,8 +32,10 @@ class SystemCommands:
     @smart_log
     def append_datastore_config(self):
         datastore_add = f"""
-        datastore: {self.proc_hash}
-            path /media/{self.proc_hash}
+datastore: {self.proc_hash}
+    comment This is a temporary Datastore and should auto-delete after the backup
+    path /media/{self.proc_hash}
+    verify-new true
         """
         with open("/etc/proxmox-backup/datastore.cfg", "a") as file:
             file.write(datastore_add)
