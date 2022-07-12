@@ -1,18 +1,15 @@
 import json
 from subprocess import Popen, PIPE
-from typing import Optional
 from pbs2usb._utils.helpers import smart_log
 
 
 class PBSCommands:
-
     def __init__(self, proc_hash, datastore, namespace, log, trustless) -> None:
         self.proc_hash = proc_hash
         self.datastore = datastore
         self.namespace = namespace
         self.log = log
         self.trustless = trustless
-
 
     @smart_log
     def create_usb_datastore(self):
@@ -32,14 +29,12 @@ class PBSCommands:
         process = Popen(cmd)
         process.wait()
 
-
     @smart_log
     def remove_usb_datastore(self):
         """Remove the previously created USB datastore to free the mounpoint"""
         cmd = ["sudo", "proxmox-backup-manager", "datastore", "remove", self.proc_hash]
         process = Popen(cmd)
         process.wait()
-
 
     @smart_log
     def pull_datastore_to_usb(self):
@@ -56,7 +51,6 @@ class PBSCommands:
         process = Popen(cmd)
         process.wait()
 
-
     @smart_log
     def verify_usb_datastore(self):
         cmd = ["proxmox-backup-manager", "verify", self.datastore]
@@ -66,7 +60,14 @@ class PBSCommands:
     @staticmethod
     def confirm_remote_exist():
         process = Popen(
-            ["sudo", "proxmox-backup-manager", "remote", "list", "--output-format", "json"],
+            [
+                "sudo",
+                "proxmox-backup-manager",
+                "remote",
+                "list",
+                "--output-format",
+                "json",
+            ],
             stdout=PIPE,
         )
         remotes, _ = process.communicate()
@@ -78,5 +79,6 @@ class PBSCommands:
                     for x in remotes_list
                     if x["name"] == "for_auto_usb_backup" and x["host"] == "127.0.0.1"
                 ]
-            ) == 1
+            )
+            == 1
         )

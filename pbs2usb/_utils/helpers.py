@@ -3,6 +3,7 @@ import re
 
 
 def make_logger(logger_level: str):
+    """Get a basic logger utility"""
     logging.basicConfig(
         level=getattr(logging, logger_level, None),
         format="%(asctime)s - %(name)s - %(levelname)s %(message)s",
@@ -11,6 +12,7 @@ def make_logger(logger_level: str):
 
 
 def verify_usb_format(usb_id):
+    """Verify that the usb follow the /dev/sdX format"""
     try:
         assert re.match("\/dev\/sd[a-z]", usb_id)  # noqa: W605
         return True
@@ -19,7 +21,8 @@ def verify_usb_format(usb_id):
 
 
 def verify_prerequisite(syscmd):
-    
+    """Verify that everything is included before the backup"""
+
     # Confirm lshw is installed
     if not syscmd.check_if_lshw_is_included():
         syscmd.log.critical("lshw is not accessible, please confirm it is installed")
@@ -35,7 +38,7 @@ Can't access Proxmox-backup-manager, please confirm that:
         """
         syscmd.log.critical(msg)
         exit(1)
-        
+
     # Check usb format is valid
     if not verify_usb_format(syscmd.usb_id):
         syscmd.log.critical(f"{syscmd.usb_id} does not match the /dev/sdX pattern")
@@ -49,14 +52,19 @@ Can't access Proxmox-backup-manager, please confirm that:
 
     return diskinfo
 
+
 def smart_log(func):
-    funcname = func.__name__.replace('_', ' ')
+    """A wrapper to log and input on command"""
+    funcname = func.__name__.replace("_", " ")
+
     def wrapper(self, *args, **kwargs):
         self.log.debug(f"Starting action: {funcname}")
         future = func(self, *args, **kwargs)
         if self.trustless:
-            input(f"""Action {funcname} is done! Continue?
-                Hit return to continue or CTRL+C to cancel""")
+            input(
+                f"""Action {funcname} is done! Continue?
+                Hit return to continue or CTRL+C to cancel"""
+            )
         return future
-    return wrapper
 
+    return wrapper

@@ -1,9 +1,5 @@
-from pbs2usb._utils.pbs_commands import (
-    PBSCommands
-)
-from pbs2usb._utils.system_commands import (
-    SystemCommands
-)
+from pbs2usb._utils.pbs_commands import PBSCommands
+from pbs2usb._utils.system_commands import SystemCommands
 
 
 def backup(
