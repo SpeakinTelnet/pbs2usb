@@ -38,3 +38,10 @@ parser.add_argument(
     choices=("CRITICAL", "FATAL", "ERROR", "WARNING", "WARN", "INFO", "DEBUG"),
     help="Logging level desired",
 )
+
+parser.add_argument(
+    "--test",
+    dest="test",
+    action="store_true",
+    help="""Will not run pull/verify on the datastore, use to test workflow""",
+)

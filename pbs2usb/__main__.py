@@ -20,6 +20,7 @@ if __name__ == "__main__":
     namespace = args.namespace
     unattended = args.unattended
     trustless = args.trustless
+    test = args.test
     logger_level = args.logger.upper()
 
     if trustless:
@@ -33,7 +34,7 @@ if __name__ == "__main__":
 
     syscmd = SystemCommands(usb_id, proc_hash, log, trustless)
 
-    pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless)
+    pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless, test)
 
     diskinfo = verify_prerequisite(syscmd)
 

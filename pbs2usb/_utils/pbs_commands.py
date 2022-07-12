@@ -4,12 +4,13 @@ from pbs2usb._utils.helpers import smart_log
 
 
 class PBSCommands:
-    def __init__(self, proc_hash, datastore, namespace, log, trustless) -> None:
+    def __init__(self, proc_hash, datastore, namespace, log, trustless, test) -> None:
         self.proc_hash = proc_hash
         self.datastore = datastore
         self.namespace = namespace
         self.log = log
         self.trustless = trustless
+        self.test = test
 
     @smart_log
     def create_usb_datastore(self):
@@ -38,6 +39,8 @@ class PBSCommands:
 
     @smart_log
     def pull_datastore_to_usb(self):
+        if self.test:
+            return
         cmd = [
             "sudo",
             "proxmox-backup-manager",
@@ -53,6 +56,8 @@ class PBSCommands:
 
     @smart_log
     def verify_usb_datastore(self):
+        if self.test:
+            return
         cmd = ["proxmox-backup-manager", "verify", self.datastore]
         process = Popen(cmd)
         process.wait()
