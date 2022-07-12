@@ -12,7 +12,7 @@ Requirements
 - A formated drive. Can be empty or store a previous datastore, pbs2usb will treat it accordingly
 - Manually create a remote called "for_auto_usb_backup" on ip 127.0.0.1 as shown below.
 
-.. image:: docs/_images/remotes.png
+.. image:: https://raw.githubusercontent.com/SpeakinTelnet/pbs2usb/master/docs/_images/remotes.png
 
 .. readme-requirements-end
 

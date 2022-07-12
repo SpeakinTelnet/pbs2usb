@@ -26,6 +26,6 @@ def backup(
 
     if not syscmd.check_existing_chunk_in_usb():
         syscmd.remove_usb_folder()
-    else: 
+    else:
         syscmd.log.warning("It seems the usb is still mounted.")
         syscmd.log.warning("The folder will be kept as-is. Please unmount manually")

@@ -1,6 +1,4 @@
-import json
 import os
-import string
 from subprocess import Popen, PIPE, DEVNULL
 from pbs2usb._utils.helpers import smart_log
 
@@ -45,14 +43,17 @@ datastore: {self.proc_hash}
 
     def get_disk_info(self):
         process = Popen(
-            ['lsblk',
-            '-as',
-            self.usb_id,
-            '--output',
-            'NAME,VENDOR,MODEL,TYPE,SIZE,FSSIZE,SERIAL,TRAN'], stdout=PIPE)
+            [
+                "lsblk",
+                "-as",
+                self.usb_id,
+                "--output",
+                "NAME,VENDOR,MODEL,TYPE,SIZE,FSSIZE,SERIAL,TRAN",
+            ],
+            stdout=PIPE,
+        )
         disks, _ = process.communicate()
         return disks.decode("utf-8")
-
 
     @staticmethod
     def check_if_pbs_is_included():

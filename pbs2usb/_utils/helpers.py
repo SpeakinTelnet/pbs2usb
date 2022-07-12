@@ -1,5 +1,4 @@
 import logging
-import re
 
 
 def make_logger(logger_level: str):
@@ -28,7 +27,9 @@ Can't access Proxmox-backup-manager, please confirm that:
     # check drive exists
     diskinfo = syscmd.get_disk_info()
     if not diskinfo:
-        syscmd.log.critical(f"{syscmd.usb_id} not found. Please verify the /dev/* id format")
+        syscmd.log.critical(
+            f"{syscmd.usb_id} not found. Please verify the /dev/* id format"
+        )
         exit(1)
 
     return diskinfo

@@ -6,9 +6,9 @@ nox.options.stop_on_first_error = True
 nox.options.reuse_existing_virtualenvs = True
 
 # default to the testing sessions
-nox.options.sessions = ["black", "lint", "tests", "wheel"]
+nox.options.sessions = ["black", "lint", "wheel"]
 
-locations = "pbs2usb", "tests", "noxfile.py"
+locations = "pbs2usb", "noxfile.py"
 
 
 @nox.session(python="3.10")
@@ -26,13 +26,6 @@ def lint(session):
     session.run("black", "--version")
     session.run("black", "--check", *locations)
     session.run("flake8", *locations)
-
-
-@nox.session(python=["3.7", "3.8", "3.8", "3.10"])
-def tests(session):
-    session.install("-e", ".")
-    session.install("-r", "tests/requirements.txt")
-    session.run("pytest")
 
 
 @nox.session(python="3.10")

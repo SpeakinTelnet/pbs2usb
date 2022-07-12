@@ -1,6 +1,5 @@
 """Main module."""
 
-import json
 import random
 from pbs2usb._utils.pbs_commands import PBSCommands
 from pbs2usb.backup import backup

@@ -10,9 +10,6 @@ with open("README.rst") as readme_file:
 with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
-with open("tests/requirements.txt") as test_requirements:
-    test_requirements = test_requirements.readlines()
-
 requirements = []
 
 setup(
@@ -40,7 +37,6 @@ setup(
     name="pbs2usb",
     packages=["pbs2usb"],
     test_suite="tests",
-    tests_require=test_requirements,
     url="https://github.com/SpeakinTelnet/pbs2usb",
     version="0.1.0",
     zip_safe=False,
