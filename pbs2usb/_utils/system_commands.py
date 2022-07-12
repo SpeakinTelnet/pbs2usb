@@ -13,11 +13,11 @@ class SystemCommands:
 
     @smart_log
     def mount_usb(self):
-        Popen(["sudo", "mount", self.usb_id, f"/media/{self.proc_hash}"]).wait()
+        Popen(["mount", self.usb_id, f"/media/{self.proc_hash}"]).wait()
 
     @smart_log
     def umount_usb(self):
-        Popen(["sudo", "umount" f"/media/{self.proc_hash}"]).wait()
+        Popen(["umount", f"/media/{self.proc_hash}"]).wait()
 
     @smart_log
     def create_usb_folder(self):
