@@ -22,11 +22,11 @@ class SystemCommands:
         Popen(["sudo", "umount", self.usb_id, f"/media/{self.hash}"]).wait()
 
     @smart_log(trustless, log)
-    def create_folder(self):
+    def create_usb_folder(self):
         Popen(["mkdir", f"/media/{self.hash}"]).wait()
 
     @smart_log(trustless, log)
-    def remove_folder(self):
+    def remove_usb_folder(self):
         Popen(["rm", "-r", f"/media/{self.hash}"]).wait()
 
     @smart_log(trustless, log)
@@ -39,7 +39,7 @@ class SystemCommands:
             file.write(datastore_add)
 
 
-    def check_existing_chunk(self):
+    def check_existing_chunk_in_usb(self):
         path = f"/media/{self.hash}/.chunks"
         return os.path.exists(path)
 

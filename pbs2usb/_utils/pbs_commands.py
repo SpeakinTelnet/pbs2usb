@@ -43,7 +43,7 @@ class PBSCommands:
 
 
     @smart_log(trustless, log)
-    def pull_datastore(self):
+    def pull_datastore_to_usb(self):
         cmd = [
             "sudo",
             "proxmox-backup-manager",
@@ -59,7 +59,7 @@ class PBSCommands:
 
 
     @smart_log(trustless, log)
-    def verify_usb(self):
+    def verify_usb_datastore(self):
         cmd = ["proxmox-backup-manager", "verify", self.datastore]
         process = Popen(cmd)
         process.wait()
