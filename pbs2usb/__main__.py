@@ -21,7 +21,7 @@ if __name__ == "__main__":
     unattended = args.unattended
     trustless = args.trustless
     test = args.test
-    logger_level = args.logger.upper()
+    logger_level = args.loglevel.upper()
 
     if trustless:
         unattended = False

@@ -31,8 +31,8 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "--logger",
-    dest="logger",
+    "--loglevel",
+    dest="loglevel",
     nargs="?",
     default="INFO",
     choices=("CRITICAL", "FATAL", "ERROR", "WARNING", "WARN", "INFO", "DEBUG"),
