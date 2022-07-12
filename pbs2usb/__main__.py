@@ -8,13 +8,14 @@ from pbs2usb._utils.parser import parser
 
 from pbs2usb._utils.helpers import (
     make_logger,
-    verify_usb_format,
+    verify_prerequisite
 )
 
 from pbs2usb._utils.system_commands import SystemCommands
 
 if __name__ == "__main__":
 
+    # Populate the vars
     args = parser.parse_args()
 
     usb_id = args.usb_id
@@ -30,36 +31,14 @@ if __name__ == "__main__":
 
     log = make_logger(logger_level)
 
+    #Create an "hash" to use as folder and datastore
     proc_hash = random.randbytes(8).hex()
 
     syscmd = SystemCommands(usb_id, proc_hash, log, trustless)
 
     pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless)
 
-    if not syscmd.check_if_lshw_is_included():
-        log.critical("lshw is not accessible, please confirm it is installed")
-        exit(1)
-
-    if not syscmd.check_if_pbs_is_included():
-        msg = """
-Can't access Proxmox-backup-manager, please confirm that:
-
-1- You have sudo privilege
-2- /usr/sbin is in $PATH (might not be required with "sudo")
-        """
-        log.critical(msg)
-        exit(1)
-        
-
-    if not verify_usb_format(usb_id):
-        log.critical(f"{usb_id} does not match the /dev/sdX pattern")
-        exit(1)
-
-    diskinfo = syscmd.get_disk_info()
-
-    if not diskinfo:
-        log.critical(f"{usb_id} not found. Please verify the /dev/sdX id")
-        exit(1)
+    diskinfo = verify_prerequisite(syscmd)
 
     if not unattended:
         # Get the usb info and confirmation before proceeding
