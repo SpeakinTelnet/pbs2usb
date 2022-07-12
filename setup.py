@@ -35,7 +35,7 @@ setup(
     include_package_data=True,
     keywords="pbs2usb",
     name="pbs2usb",
-    packages=["pbs2usb"],
+    packages=['pbs2usb', 'pbs2usb._utils'],
     test_suite="tests",
     url="https://github.com/SpeakinTelnet/pbs2usb",
     version="0.1.1",
