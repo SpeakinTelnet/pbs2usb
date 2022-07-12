@@ -41,7 +41,7 @@ if __name__ == "__main__":
     if not unattended:
         # Get the usb info and confirmation before proceeding
         confirm = input(
-            json.dumps(diskinfo, indent=4)
+            diskinfo
             + "\n\n"
             + "Please confirm that this is the usb disk. Are you sure? [y/n]: "
         )

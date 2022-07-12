@@ -44,20 +44,15 @@ datastore: {self.proc_hash}
         return os.path.exists(path)
 
     def get_disk_info(self):
-        process = Popen(["lshw", "-c", "disk", "-json", "-quiet"], stdout=PIPE)
-        json_disks, _ = process.communicate()
-        disks = json.loads(json_disks)
-        for disk in disks:
-            if self.usb_id.rstrip(string.digits) in disk["logicalname"]:
-                return disk
+        process = Popen(
+            ['lsblk',
+            '-as',
+            self.usb_id,
+            '--output',
+            'NAME,VENDOR,MODEL,TYPE,SIZE,FSSIZE,SERIAL,TRAN'], stdout=PIPE)
+        disks, _ = process.communicate()
+        return disks.decode("utf-8")
 
-    @staticmethod
-    def check_if_lshw_is_included():
-        try:
-            Popen(["lshw", "-version"], stdout=DEVNULL)
-            return True
-        except FileNotFoundError:
-            return False
 
     @staticmethod
     def check_if_pbs_is_included():
