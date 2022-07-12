@@ -36,6 +36,21 @@ if __name__ == "__main__":
 
     pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless)
 
+    if not syscmd.check_if_lshw_is_included():
+        log.critical("lshw is not accessible, please confirm it is installed")
+        exit(1)
+
+    if not syscmd.check_if_pbs_is_included():
+        msg = """
+Can't access Proxmox-backup-manager, please confirm that:
+
+1- You have sudo privilege
+2- /usr/sbin is in $PATH (might not be required with "sudo")
+        """
+        log.critical(msg)
+        exit(1)
+        
+
     if not verify_usb_format(usb_id):
         log.critical(f"{usb_id} does not match the /dev/sdX pattern")
         exit(1)

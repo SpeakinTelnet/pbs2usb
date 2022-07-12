@@ -1,6 +1,6 @@
 import json
 import os
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, DEVNULL
 from pbs2usb._utils.helpers import smart_log
 
 
@@ -13,21 +13,26 @@ class SystemCommands:
         self.log = log
         self.trustless = trustless
 
+
     @smart_log
     def mount_usb(self):
         Popen(["sudo", "mount", self.usb_id, f"/media/{self.proc_hash}"]).wait()
+
 
     @smart_log
     def umount_usb(self):
         Popen(["sudo", "umount" f"/media/{self.proc_hash}"]).wait()
 
+
     @smart_log
     def create_usb_folder(self):
         Popen(["mkdir", f"/media/{self.proc_hash}"]).wait()
 
+
     @smart_log
     def remove_usb_folder(self):
         Popen(["rm", "-r", f"/media/{self.proc_hash}"]).wait()
+
 
     @smart_log
     def append_datastore_config(self):
@@ -53,3 +58,20 @@ datastore: {self.proc_hash}
         for disk in disks:
             if self.usb_id in disk["logicalname"]:
                 return disk 
+
+
+    @staticmethod
+    def check_if_lshw_is_included():
+        try:
+            Popen(["lshw", "-version"], stdout=DEVNULL)
+            return True
+        except FileNotFoundError:
+            return False
+
+    @staticmethod
+    def check_if_pbs_is_included():
+        try:
+            Popen(["proxmox-backup-manager", "version"], stdout=DEVNULL)
+            return True
+        except FileNotFoundError:
+            return False
