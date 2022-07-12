@@ -9,7 +9,7 @@ from pbs2usb._utils.helpers import make_logger, verify_prerequisite
 
 from pbs2usb._utils.system_commands import SystemCommands
 
-if __name__ == "__main__":
+def main():
 
     # Populate the vars
     args = parser.parse_args()
@@ -63,3 +63,7 @@ if __name__ == "__main__":
         input("Continue? \nHit return to continue or CTRL+C to cancel")
 
     backup(syscmd, pbscmd)
+
+
+if __name__ == "__main__":
+    main()

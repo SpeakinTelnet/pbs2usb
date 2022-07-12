@@ -40,4 +40,9 @@ setup(
     url="https://github.com/SpeakinTelnet/pbs2usb",
     version="0.1.0",
     zip_safe=False,
+    entry_points={
+        "console_scripts": [
+            "pbs2usb=pbs2usb.app:main"
+        ]
+    }
 )
