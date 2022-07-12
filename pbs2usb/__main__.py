@@ -35,11 +35,11 @@ if __name__ == "__main__":
     PBSCommands.log = log
     SystemCommands.log = log
 
-    process_hash = random.randbytes(8).hex()
+    proc_hash = random.randbytes(8).hex()
 
-    syscmd = SystemCommands(usb_id, process_hash, log, trustless)
+    syscmd = SystemCommands(usb_id, proc_hash, log, trustless)
 
-    pbscmd = PBSCommands(process_hash, datastore, namespace, log, trustless)
+    pbscmd = PBSCommands(proc_hash, datastore, namespace, log, trustless)
 
     if not verify_usb_format(usb_id):
         log.critical(f"{usb_id} does not match the /dev/sdX pattern")
@@ -66,7 +66,7 @@ if __name__ == "__main__":
  
     msg = f"""
     Will mount usb {usb_id}
-    In folder /media/{process_hash}
+    In folder /media/{proc_hash}
     And pull the data from {datastore}
     """
     if args.namespace:
