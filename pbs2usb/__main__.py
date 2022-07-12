@@ -56,7 +56,7 @@ if __name__ == "__main__":
     And pull the data from {datastore}
     """
     if args.namespace:
-        msg += f"\nUsing the following namespace: {', '.join(args.namespace)}"
+        msg += f"Using the following namespace: {namespace}"
 
     log.info(msg)
 
