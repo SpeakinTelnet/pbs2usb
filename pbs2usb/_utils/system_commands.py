@@ -19,7 +19,7 @@ class SystemCommands:
 
     @smart_log
     def umount_usb(self):
-        Popen(["sudo", "umount", self.usb_id, f"/media/{self.proc_hash}"]).wait()
+        Popen(["sudo", "umount" f"/media/{self.proc_hash}"]).wait()
 
     @smart_log
     def create_usb_folder(self):
