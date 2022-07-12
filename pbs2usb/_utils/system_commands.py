@@ -1,5 +1,6 @@
 import json
 import os
+import string
 from subprocess import Popen, PIPE, DEVNULL
 from pbs2usb._utils.helpers import smart_log
 
@@ -47,7 +48,7 @@ datastore: {self.proc_hash}
         json_disks, _ = process.communicate()
         disks = json.loads(json_disks)
         for disk in disks:
-            if self.usb_id in disk["logicalname"]:
+            if self.usb_id.rstrip(string.digits) in disk["logicalname"]:
                 return disk
 
     @staticmethod
