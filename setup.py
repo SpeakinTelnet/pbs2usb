@@ -38,7 +38,7 @@ setup(
     packages=['pbs2usb', 'pbs2usb._utils'],
     test_suite="tests",
     url="https://github.com/SpeakinTelnet/pbs2usb",
-    version="0.1.3",
+    version="0.1.4",
     zip_safe=False,
     entry_points={
         "console_scripts": [
