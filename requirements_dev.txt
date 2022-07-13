@@ -1,0 +1,8 @@
+bump2version==0.5.11
+black==22.6.0
+flake8==4.0.1
+nox==2022.1.7
+pip==22.1.2
+setuptools==62.2.0
+twine==4.0.1
+wheel==0.37.1
