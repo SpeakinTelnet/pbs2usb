@@ -1,6 +1,5 @@
 import logging
 
-
 def make_logger(logger_level: str):
     """Get a basic logger utility"""
     logging.basicConfig(
@@ -10,7 +9,7 @@ def make_logger(logger_level: str):
     return logging.getLogger("pbs2usb")
 
 
-def verify_prerequisite(syscmd):
+def verify_prerequisite(syscmd, pbscmd):
     """Verify that everything is included before the backup"""
 
     # confirm proxmox backup manager is accessible
@@ -22,6 +21,14 @@ Can't access Proxmox-backup-manager, please confirm that:
 2- /usr/sbin is in $PATH (might not be required with "sudo")
         """
         syscmd.log.critical(msg)
+        exit(1)
+
+    if not pbscmd.confirm_remote_exist():
+        syscmd.log.critical("Remote 'for_auto_usb_backup' is not created, stopping")
+        exit(1)
+
+    if not pbscmd.confirm_datastore_exist():
+        syscmd.log.critical(f"Datastore {pbscmd.datastore} doesn't exist, stopping")
         exit(1)
 
     # check drive exists

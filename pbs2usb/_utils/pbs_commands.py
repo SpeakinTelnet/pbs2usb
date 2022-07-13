@@ -16,7 +16,6 @@ class PBSCommands:
     def create_usb_datastore(self):
         """Create a temporary datastore for PBS to use the USB drive"""
         cmd = [
-            "sudo",
             "proxmox-backup-manager",
             "datastore",
             "create",
@@ -33,7 +32,7 @@ class PBSCommands:
     @smart_log
     def remove_usb_datastore(self):
         """Remove the previously created USB datastore to free the mounpoint"""
-        cmd = ["sudo", "proxmox-backup-manager", "datastore", "remove", self.proc_hash]
+        cmd = ["proxmox-backup-manager", "datastore", "remove", self.proc_hash]
         process = Popen(cmd)
         process.wait()
 
@@ -42,7 +41,6 @@ class PBSCommands:
         if self.test:
             return
         cmd = [
-            "sudo",
             "proxmox-backup-manager",
             "pull",
             "for_auto_usb_backup",
@@ -58,15 +56,39 @@ class PBSCommands:
     def verify_usb_datastore(self):
         if self.test:
             return
-        cmd = ["proxmox-backup-manager", "verify", self.datastore]
+        cmd = ["proxmox-backup-manager", "verify", self.proc_hash]
         process = Popen(cmd)
         process.wait()
+
+    def confirm_datastore_exist(self):
+        process = Popen(
+            [
+                "proxmox-backup-manager",
+                "datastore",
+                "list",
+                "--output-format",
+                "json",
+            ],
+            stdout=PIPE,
+        )
+        datastores, _ = process.communicate()
+        datastores_list = json.loads(datastores)
+        return (
+            len(
+                [
+                    x
+                    for x in datastores_list
+                    if x["name"] == self.datastore
+                ]
+            )
+            == 1
+        )
+
 
     @staticmethod
     def confirm_remote_exist():
         process = Popen(
             [
-                "sudo",
                 "proxmox-backup-manager",
                 "remote",
                 "list",

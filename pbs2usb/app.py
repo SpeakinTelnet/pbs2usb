@@ -36,7 +36,7 @@ def main():
 
     pbscmd = PBSCommands(hex_bytes, datastore, namespace, log, trustless, test)
 
-    diskinfo = verify_prerequisite(syscmd)
+    diskinfo = verify_prerequisite(syscmd, pbscmd)
 
     if not unattended:
         # Get the usb info and confirmation before proceeding
