@@ -9,6 +9,7 @@ from pbs2usb._utils.helpers import make_logger, verify_prerequisite
 
 from pbs2usb._utils.system_commands import SystemCommands
 
+
 def main():
 
     # Populate the vars

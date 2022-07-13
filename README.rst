@@ -21,22 +21,20 @@ Installation
 
 .. readme-install-start
 
-pbs2usb can be installed using ``pip`` as follows:
+**Beware**: You should never use pip as sudo!
+
+For security reason pbs2usb doesn't currently have a pip package. The superuser
+requirement of the script makes it hard to manage as a pypi package. 
+
+It is package ready but I'm still trying to come up with a proper and safe Installation
+process
+
+For now you can use it by cloning this repository
 
 .. code-block:: console
 
-  $ python3 -m pip install pbs2usb
-
-And if you want another layer of protection, in a virtual environment:
-
-.. code-block:: console
-
-  $ virtualenv venv
-  $ source venv/bin/activate
-  $ pip install pbs2usb
-  #Run your commands in the virtual environment
-
-  $ deactivate #to quit the virtual environment
+  $ git clone git@github.com:SpeakinTelnet/pbs2usb.git
+  $ cd pbs2usb
 
 .. readme-install-end
 
@@ -47,9 +45,9 @@ Usage
 
 .. code-block:: console
 
-  #          disk----        ----datastore
-  #                 |        |
-  $ sudo pbs2usb /dev/sde1 backup_ds
+                        #   disk----     ----datastore
+                        #      |        |
+  $ sudo python3 -m pbs2usb /dev/sde1 backup_ds
 
 Complete example
 ****************
@@ -77,7 +75,7 @@ After that we issue the following command and everything should go flawlessly™
 
 .. code-block:: console
 
-  $ sudo pbs2usb /dev/sde1 backup_ds 
+  $ sudo python3 -m pbs2usb /dev/sde1 backup_ds 
 
 The workflow can be resumed as:
 Mount drive -> Create Datastore -> Pull from existing -> Verify -> Unmount -> Delete temporary folder 
